@@ -1,12 +1,16 @@
 
 exports.getIndexPage=(req,res)=>{
-    res.render("index")
+    res.render("index",{
+        pages:"index"
+    })
 
 }
 
 
 
 exports.getAbout=(req,res)=>{
-    res.render("about")
+    res.render("about",{
+        pages:"about"
+    })
 
 }
