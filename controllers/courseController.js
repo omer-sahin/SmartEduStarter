@@ -1,23 +1,40 @@
-const Course=require("../models/Course");
+const Course = require("../models/Course");
+
+exports.createCourse = async (req, res) => {
+  try {
+    const course = await Course.create(req.body);
+
+    res.status(201).render({
+      status: "succes",
+      course,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      error,
+    });
+  }
+};
 
 
+exports.getAllCourses=async (req,res)=>{
+  try{
 
 
-exports.createCourse=async (req,res)=>{
-    const course=await Course.create(req.body);
-    try{
-        res.status(201).json({
-            status:"succes",
-            course
-        })
-    }catch{
+    const courses=await Course.find();
+    res.status(200).render("courses",{
+      courses,
+      pages:"courses"
 
-        res.status(400).json({
-            status:"fail",
-           error
-        })
+    })
 
-    }
+  }catch (error){
+    res.status(400).json({
+      status:"Fail",
+      error
+    })
+  }
 
-   
+  
+  
 }
