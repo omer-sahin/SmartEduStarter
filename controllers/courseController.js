@@ -1,10 +1,11 @@
 const Course = require("../models/Course");
+const Category = require("../models/Category");
 
 exports.createCourse = async (req, res) => {
   try {
     const course = await Course.create(req.body);
 
-    res.status(201).render({
+    res.status(201).json({
       status: "succes",
       course,
     });
@@ -16,25 +17,46 @@ exports.createCourse = async (req, res) => {
   }
 };
 
+exports.getAllCourse = async (req, res) => {
+  try {
+    const categorySlug=req.query.categories; //! courses?categories=js-egitim-serisi
+    const category= await Category.findOne({slug:categorySlug}) //! js-egitim-serisi
 
-exports.getAllCourses=async (req,res)=>{
-  try{
+    let filter={};
+    if(categorySlug){
+      filter={category:category._id}
+    }
 
 
-    const courses=await Course.find();
-    res.status(200).render("courses",{
-      courses,
-      pages:"courses"
+    const course = await Course.find(filter);
 
-    })
+    const categories= await Category.find();
 
-  }catch (error){
+    res.status(200).render("courses", {
+      course,
+      categories,
+      pages: "courses",
+    });
+  } catch (error) {
     res.status(400).json({
-      status:"Fail",
-      error
-    })
+      status: "Fail",
+      error,
+    });
   }
+};
 
-  
-  
-}
+exports.getCourse = async  (req, res) => {
+  try {
+    const course = await Course.findOne({slug: req.params.slug});
+    res.status(200).render("course", {
+      course,
+      pages: "courses",
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "Fail",
+      error,
+    });
+  }
+};
+
