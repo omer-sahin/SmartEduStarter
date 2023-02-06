@@ -14,13 +14,28 @@
                     <li class="nav-item <%= pages =='index' && 'active' %>"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item <%= pages =='about' && 'active' %>"><a class="nav-link" href="/about">About Us</a></li>
                     <li class="nav-item <%= pages =='courses' && 'active' %>"><a class="nav-link " href="/courses">Courses</a></li>
+
+                    <% if (userIN)   { %>
                     <li class="nav-item"><a class="nav-link" href="">Dashboard</a></li>
+                    <% }   %>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    
                 </ul>
+
+
+
+                <% if (!userIN)   { %>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="hover-btn-new log orange mr-2" href="#" data-toggle="modal" data-target="#login"><span><i class="fa fa-sign-in" aria-hidden="true"></i></span></a></li>
-                    <li><a class="hover-btn-new log orange" href="#" data-toggle="modal" data-target="#signup"><span><i class="fa fa-user-plus" aria-hidden="true"></i></span></a></li>
+                    <li><a class="hover-btn-new log  mr-2 <%= pages =='login' && 'orange' %> " href="/login" ><span><i class="fa fa-sign-in" aria-hidden="true"></i></span></a></li>
+                    <li><a class="hover-btn-new log mr-2 <%= pages =='register' && 'orange' %> " href="/register" ><span><i class="fa fa-user-plus" aria-hidden="true"></i></span></a></li>
                 </ul>
+                <% }   %>
+                <% if (userIN)   { %>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="hover-btn-new log  mr-2 <%= pages =='login' && 'orange' %> " href="/users/logout" ><span><i class="fa fa-sign-out" aria-hidden="true"></i></span></a></li>
+                       
+                    </ul>
+                    <% }   %>
             </div>
         </div>
     </nav>
