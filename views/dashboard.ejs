@@ -1,12 +1,16 @@
 <%- include ("partials/head.ejs")%>
 	<!-- End header -->
 <%-include ("partials/header")%>
+
+<% if(user ) {%>
 	
 	<div class="all-title-box">
 		<div class="container text-center">
 			<h1> HOŞ GELDİN <%=user.name%><span class="m_1">Lorem Ipsum dolroin gravida nibh vel velit.</span></h1>
 		</div>
 	</div>
+
+	
 	
     <div id="overviews" class="section wb">
         <div class="container">
@@ -92,5 +96,5 @@
             </div><!-- end row -->
         </div><!-- end container -->
     </div><!-- end section -->
-
+	<%  } %>
 	<%-include("partials/footer.ejs")%>
