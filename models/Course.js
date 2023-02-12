@@ -28,6 +28,7 @@ const CourseSchema = new Schema({
     //! mongoose object id kullanarak referans olarak kategori modeline verildi
   },
   user:{type:mongoose.Schema.Types.ObjectId,
+    ref:"User"
 
   }
 });
