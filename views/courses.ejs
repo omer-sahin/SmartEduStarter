@@ -32,7 +32,7 @@
                   </h2>
                 </div>
                 <div class="course-desc">
-                  <p><%=course[i].description%></p>
+                  <p><%=course[i].description.substring(0,150)%><a href="/courses/<%=course[i].slug%>" >...devamını oku</a></p>
                 </div>
               </div>
               <div class="course-meta-bot">

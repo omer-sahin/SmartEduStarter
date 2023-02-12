@@ -20,14 +20,14 @@ const UserSchema = new Schema({
     type:String,
     enum:["student","teacher","admin"],
     default:"student"
-  }
+  },
+  courses:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Course"
+  }]
 
 
-  // role:{
-  //   type: String,
-  //   enum:["student", "teacher", "admin"],
-  //   default: "student"
-  // }
+  
 });
 
 UserSchema.pre('save', function (next){
