@@ -24,6 +24,7 @@ exports.createCourse = async (req, res) => {
 exports.getAllCourse = async (req, res) => {
   try {
     const categorySlug=req.query.categories; //! courses?categories=js-egitim-serisi
+    const query=req.query.search;
     const category= await Category.findOne({slug:categorySlug}) //! js-egitim-serisi
 
     let filter={};
@@ -31,8 +32,24 @@ exports.getAllCourse = async (req, res) => {
       filter={category:category._id}
     }
 
+    if(query){
+      filter={name:query}
+    }
+    if(!query && !categorySlug){
+      filter.name="";
+      filter.category=null;
+    }
 
-    const course = await Course.find(filter).sort("-createdAt");
+    const course = await Course.find({
+      $or: [
+        {
+          name: { $regex: ".*" + filter.name + ".*", $options: "i" },
+        },
+        {
+          category:filter.category
+        }
+      ],
+    }).sort("-createdAt").populate("user")
 
     const categories= await Category.find();
 
