@@ -7,6 +7,7 @@ const categoryRoute=require("./routes/categoryRoute")
 const userRoute=require("./routes/userRoute")
 const session=require("express-session")
 const MongoStore = require('connect-mongo');
+const flash = require('connect-flash');
 const port = 3000;
 const localhost = "127.0.0.1";
 
@@ -41,7 +42,15 @@ app.use(session({
 
  
 }))
+app.use(flash());
 
+
+
+app.use((req,res,next)=>{
+  res.locals.flashMessage=req.flash();
+
+  next();
+})
 app.use("*",(req,res,next)=>{
   userIN=req.session.userID;
   next();

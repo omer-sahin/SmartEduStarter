@@ -43,6 +43,11 @@ exports.sendEmail =async (req, res) => {
   <h1> Message </h1>
   <p> ${req.body.message} </p>`;
 
+
+
+
+  try{
+
   
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
@@ -75,9 +80,15 @@ exports.sendEmail =async (req, res) => {
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
   
-
+    req.flash("success","Mail Başarılı bir şekilde gönderildi")
 
   res.status(200).redirect("/contact")
+}catch ( err ){
+
+  req.flash("error",` Mesajınız   iletilemedi lütfen tekrar deneyin  ` );
+  res.status(200).redirect("/contact")
+
+}
 
  
 };
