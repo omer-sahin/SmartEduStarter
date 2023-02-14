@@ -112,3 +112,38 @@ exports.releaselCourse = async  (req, res) => {
 };
 
 
+exports.deletelCourse = async  (req, res) => {
+  try {
+   const course= await Course.findOneAndRemove({slug:req.params.slug })
+    req.flash("success",`${course.name} Başarılı bir şekilde silindi `)
+    res.status(200).redirect("/users/dashboard")
+  } catch (error) {
+    res.status(400).json({
+      status: "Fail",
+      error,
+    });
+  }
+};
+
+exports.updateCourse= async (req,res )=>{
+
+  try{
+    const course=await Course.findOne({slug:req.params.slug})
+    course.name=req.body.name;
+    course.description=req.body.description;
+    course.category=req.body.category;
+    ( course).save();
+    res.status(200).redirect("/users/dashboard")
+
+  }catch (error) {
+    res.status(400).json({
+      status: "Fail",
+      error,
+    });
+
+  }
+
+}
+
+
+
